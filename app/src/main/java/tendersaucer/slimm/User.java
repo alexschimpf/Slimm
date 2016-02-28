@@ -11,14 +11,6 @@ public final class User {
         MALE, FEMALE
     }
 
-    public enum WeightUnit {
-        KILOGRAMS, POUNDS
-    }
-
-    public enum HeightUnit {
-        CENTIMETERS, INCHES
-    }
-
     public enum WeightLossPace {
         SLOW, MEDIUM, FAST
     }
@@ -33,10 +25,10 @@ public final class User {
         return INSTANCE;
     }
 
-    private Prefs prefs;
+    private final Prefs prefs;
 
     private User() {
-        prefs = Prefs.getInstance();
+        prefs = Prefs.user();
     }
 
     public boolean isNew() {
@@ -47,40 +39,75 @@ public final class User {
         return Gender.valueOf(prefs.getString(R.string.prefs_gender, null));
     }
 
+    public boolean isMale() {
+        return getGender().equals(Gender.MALE);
+    }
+
     public int getAge() {
         return prefs.getInt(R.string.prefs_age, 0);
     }
 
+    /**
+     * Returns the user's original weight.
+     * @return - original weight in preferred units
+     */
     public float getOrigWeight() {
-        return prefs.getFloat(R.string.prefs_orig_weight, 0.0f);
+        return getOrigWeight(getWeightUnit());
     }
 
+    /**
+     * Returns the user's current weight.
+     * @return - current weight in preferred units
+     */
     public float getCurrWeight() {
-        return prefs.getFloat(R.string.prefs_curr_weight, 0.0f);
+        return getCurrWeight(getWeightUnit());
     }
 
+    /**
+     * Returns the user's current height.
+     * @return - current height in preferred units
+     */
     public int getHeight() {
-        return prefs.getInt(R.string.prefs_height, 0);
+        return getHeight(getHeightUnit());
     }
 
-    public int getWaistSize() {
-        return prefs.getInt(R.string.prefs_waist_size, 0);
+    public float getOrigWeight(ConversionUtils.WeightUnit unit) {
+        float weight = prefs.getFloat(R.string.prefs_orig_weight, 0.0f);
+        if (unit.equals(ConversionUtils.WeightUnit.POUNDS)) {
+            weight = ConversionUtils.kg2lb(weight);
+        }
+
+        return weight;
     }
 
-    public int getHipSize() {
-        return prefs.getInt(R.string.prefs_hip_size, 0);
+    public float getCurrWeight(ConversionUtils.WeightUnit unit) {
+        float weight = prefs.getFloat(R.string.prefs_curr_weight, 0.0f);
+        if (weight == 0) {
+            return getOrigWeight(unit);
+        }
+
+        if (unit.equals(ConversionUtils.WeightUnit.POUNDS)) {
+            weight = ConversionUtils.kg2lb(weight);
+        }
+
+        return weight;
     }
 
-    public int getWristSize() {
-        return prefs.getInt(R.string.prefs_wrist_size, 0);
+    public int getHeight(ConversionUtils.HeightUnit unit) {
+        int height = prefs.getInt(R.string.prefs_height, 0);
+        if (unit.equals(ConversionUtils.HeightUnit.INCHES)) {
+            height = ConversionUtils.cm2in(height);
+        }
+
+        return height;
     }
 
-    public WeightUnit getWeightUnit() {
-        return WeightUnit.valueOf(prefs.getString(R.string.prefs_weight_unit, null));
+    public ConversionUtils.WeightUnit getWeightUnit() {
+        return ConversionUtils.WeightUnit.valueOf(prefs.getString(R.string.prefs_weight_unit, null));
     }
 
-    public HeightUnit getHeightUnit() {
-        return HeightUnit.valueOf(prefs.getString(R.string.prefs_height_unit, null));
+    public ConversionUtils.HeightUnit getHeightUnit() {
+        return ConversionUtils.HeightUnit.valueOf(prefs.getString(R.string.prefs_height_unit, null));
     }
 
     public ReminderFrequency getReminderFreq() {
@@ -89,6 +116,12 @@ public final class User {
 
     public WeightLossPace getWeightLossPace() {
         return WeightLossPace.valueOf(prefs.getString(R.string.prefs_weight_loss_pace, null));
+    }
+
+    public int getCurrBMR() {
+        float weight = getCurrWeight(ConversionUtils.WeightUnit.KILOGRAMS);
+        int height = getHeight(ConversionUtils.HeightUnit.CENTIMETERS);
+        return CalorieUtils.getBMR(isMale(), getAge(), weight, height);
     }
 
     public void setInitialized() {
@@ -103,35 +136,50 @@ public final class User {
         prefs.putInt(R.string.prefs_age, age);
     }
 
-    public void setOrigWeight(float weight) {
+    /**
+     * Saves as kg.
+     * @param weight
+     * @param unit
+     */
+    public void setOrigWeight(float weight, ConversionUtils.WeightUnit unit) {
+        if (unit.equals(ConversionUtils.WeightUnit.POUNDS)) {
+            weight = ConversionUtils.lb2kg(weight);
+        }
+
         prefs.putFloat(R.string.prefs_orig_weight, weight);
     }
 
-    public void setCurrWeight(float weight) {
+    /**
+     * Saves as kg.
+     * @param weight
+     * @param unit
+     */
+    public void setCurrWeight(float weight, ConversionUtils.WeightUnit unit) {
+        if (unit.equals(ConversionUtils.WeightUnit.POUNDS)) {
+            weight = ConversionUtils.lb2kg(weight);
+        }
+
         prefs.putFloat(R.string.prefs_curr_weight, weight);
     }
 
-    public void setHeight(int height) {
+    /**
+     * Saves as cm.
+     * @param height
+     * @param unit
+     */
+    public void setHeight(int height, ConversionUtils.HeightUnit unit) {
+        if (unit.equals(ConversionUtils.HeightUnit.INCHES)) {
+            height = ConversionUtils.in2cm(height);
+        }
+
         prefs.putInt(R.string.prefs_height, height);
     }
 
-    public void setWaistSize(Integer waistSize) {
-        prefs.putInt(R.string.prefs_waist_size, waistSize);
-    }
-
-    public void setHipSize(Integer hipSize) {
-        prefs.putInt(R.string.prefs_hip_size, hipSize);
-    }
-
-    public void setWristSize(Integer wristSize) {
-        prefs.putInt(R.string.prefs_wrist_size, wristSize);
-    }
-
-    public void setWeightUnit(WeightUnit unit) {
+    public void setWeightUnit(ConversionUtils.WeightUnit unit) {
         prefs.putString(R.string.prefs_weight_unit, unit.name());
     }
 
-    public void setHeightUnit(HeightUnit unit) {
+    public void setHeightUnit(ConversionUtils.HeightUnit unit) {
         prefs.putString(R.string.prefs_height_unit, unit.name());
     }
 

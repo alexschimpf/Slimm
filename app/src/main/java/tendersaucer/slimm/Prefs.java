@@ -10,22 +10,35 @@ import java.util.Set;
  */
 public final class Prefs {
 
-    private final static Prefs INSTANCE = new Prefs();
-
-    public static Prefs getInstance() {
-        return INSTANCE;
+    public enum PrefType {
+        USER, USER_CALENDAR
     }
 
-    private MainActivity activity;
+    private static Context context;
+    private final static Prefs USER_INSTANCE = new Prefs(PrefType.USER);
+    private final static Prefs USER_CALENDAR_INSTANCE = new Prefs(PrefType.USER_CALENDAR);
+
+    public static void init(Context context) {
+        Prefs.context = context;
+    }
+
+    public static String getResString(int resId) {
+        return context.getString(resId);
+    }
+
+    public static Prefs user() {
+        return USER_INSTANCE;
+    }
+
+    public static Prefs userCalendar() {
+        return USER_CALENDAR_INSTANCE;
+    }
+
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-    private Prefs() {
-    }
-
-    public void init(MainActivity activity) {
-        this.activity = activity;
-        prefs = activity.getPreferences(Context.MODE_PRIVATE);
+    private Prefs(PrefType type) {
+        prefs = Prefs.context.getSharedPreferences(type.name(), Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
@@ -89,9 +102,5 @@ public final class Prefs {
     public void putStringSet(int resId, Set<String> val) {
         editor.putStringSet(getResString(resId), val);
         editor.commit();
-    }
-
-    public String getResString(int resId) {
-        return activity.getString(resId);
     }
 }

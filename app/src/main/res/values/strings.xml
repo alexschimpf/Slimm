@@ -20,9 +20,6 @@
     <string name="prefs_orig_weight">prefs_orig_weight</string>
     <string name="prefs_curr_weight">prefs_curr_weight</string>
     <string name="prefs_height">prefs_height</string>
-    <string name="prefs_waist_size">prefs_waist_size</string>
-    <string name="prefs_hip_size">prefs_hip_size</string>
-    <string name="prefs_wrist_size">prefs_wrist_size</string>
     <string name="prefs_weight_loss_pace">prefs_weight_loss_pace</string>
     <string name="prefs_reminder_freq">prefs_reminder_freq</string>
     <string name="prefs_weight_unit">prefs_weight_unit</string>
