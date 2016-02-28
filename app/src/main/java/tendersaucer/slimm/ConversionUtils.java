@@ -5,14 +5,6 @@ package tendersaucer.slimm;
  */
 public final class ConversionUtils {
 
-    public enum WeightUnit {
-        KILOGRAMS, POUNDS
-    }
-
-    public enum HeightUnit {
-        CENTIMETERS, INCHES
-    }
-
     private static final float KG_2_LB = 2.20462f;
     private static final float CM_2_IN = 0.393701f;
 

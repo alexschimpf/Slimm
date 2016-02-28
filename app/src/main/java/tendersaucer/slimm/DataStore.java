@@ -8,37 +8,27 @@ import java.util.Set;
 /**
  * Created by Alex on 2/27/2016.
  */
-public final class Prefs {
+public final class DataStore {
 
-    public enum PrefType {
+    public enum Type {
         USER, USER_CALENDAR
     }
 
     private static Context context;
-    private final static Prefs USER_INSTANCE = new Prefs(PrefType.USER);
-    private final static Prefs USER_CALENDAR_INSTANCE = new Prefs(PrefType.USER_CALENDAR);
 
     public static void init(Context context) {
-        Prefs.context = context;
+        DataStore.context = context;
     }
 
     public static String getResString(int resId) {
         return context.getString(resId);
     }
 
-    public static Prefs user() {
-        return USER_INSTANCE;
-    }
-
-    public static Prefs userCalendar() {
-        return USER_CALENDAR_INSTANCE;
-    }
-
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-    private Prefs(PrefType type) {
-        prefs = Prefs.context.getSharedPreferences(type.name(), Context.MODE_PRIVATE);
+    public DataStore(Type type) {
+        prefs = DataStore.context.getSharedPreferences(type.name(), Context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 

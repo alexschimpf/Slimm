@@ -3,28 +3,32 @@ package tendersaucer.slimm;
 /**
  * Created by Alex on 2/27/2016.
  *
- * Contains all data tracked daily in UserCalendar.
+ * Contains data items tracked in UserCalendar.
  */
 public final class UserCalendarItem {
 
-    private int weight;
+    private float weight;
     private int caloriesConsumed;
     private int caloriesBurned;
 
     public UserCalendarItem() {
     }
 
-    public UserCalendarItem(int weight, int caloriesConsumed, int caloriesBurned) {
+    public UserCalendarItem(float weight, int caloriesConsumed, int caloriesBurned) {
         this.weight = weight;
         this.caloriesConsumed = caloriesConsumed;
         this.caloriesBurned = caloriesBurned;
     }
 
-    public int getWeight() {
-        return weight;
+    public float getWeight() {
+        return User.getInstance().usesPounds() ? ConversionUtils.kg2lb(weight) : weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
+        if (User.getInstance().usesPounds()) {
+            weight = ConversionUtils.lb2kg(weight);
+        }
+
         this.weight = weight;
     }
 

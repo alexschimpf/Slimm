@@ -3,6 +3,7 @@ package tendersaucer.slimm;
 import com.google.gson.Gson;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 
 /**
  * Created by Alex on 2/27/2016.
@@ -17,10 +18,14 @@ public final class UserCalendar {
         return INSTANCE;
     }
 
-    private final Prefs prefs;
+    public static DateTime getWeekStart(DateTime dateTime) {
+        return dateTime.withDayOfWeek(DateTimeConstants.MONDAY);
+    }
+
+    private final DataStore dataStore;
 
     public UserCalendar() {
-        prefs = Prefs.userCalendar();
+        dataStore = new DataStore(DataStore.Type.USER_CALENDAR);
     }
 
     public int getNetWeekCalories(DateTime mondayDateTime) {
@@ -36,7 +41,7 @@ public final class UserCalendar {
 
     public UserCalendarItem getItem(DateTime dateTime) {
         String dateKey = getDateKey(dateTime);
-        String itemStr = prefs.getPrefs().getString(dateKey, null);
+        String itemStr = dataStore.getPrefs().getString(dateKey, null);
         if (itemStr == null) {
             return new UserCalendarItem();
         }
@@ -45,7 +50,13 @@ public final class UserCalendar {
     }
 
     public void setItem(DateTime dateTime, UserCalendarItem item) {
-        prefs.getEditor().putString(getDateKey(dateTime), (new Gson()).toJson(item));
+        dataStore.getEditor().putString(getDateKey(dateTime), (new Gson()).toJson(item));
+    }
+
+    public void setWeekWeight(DateTime mondayDateTime, float weight) {
+        UserCalendarItem item = getItem(mondayDateTime);
+        item.setWeight(weight);
+        setItem(mondayDateTime, item);
     }
 
     private String getDateKey(DateTime dateTime) {
