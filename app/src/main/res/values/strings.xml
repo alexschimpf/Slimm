@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Slimm</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="reminder_freq_never">Never</string>
+    <string name="reminder_freq_weekly">Weekly</string>
+    <string name="reminder_freq_daily">Daily</string>
+    <string name="weight_loss_pace_slow">Slow</string>
+    <string name="reminder_freq_medium">Medium</string>
+    <string name="unit_kilograms">kg</string>
+    <string name="unit_pounds">lb</string>
+    <string name="unit_centimeters">cm</string>
+    <string name="unit_inches">in</string>
+
+    <string name="prefs_is_new">prefs_is_new</string>
+    <string name="prefs_gender">prefs_gender</string>
+    <string name="prefs_age">prefs_age</string>
+    <string name="prefs_orig_weight">prefs_orig_weight</string>
+    <string name="prefs_curr_weight">prefs_curr_weight</string>
+    <string name="prefs_height">prefs_height</string>
+    <string name="prefs_waist_size">prefs_waist_size</string>
+    <string name="prefs_hip_size">prefs_hip_size</string>
+    <string name="prefs_wrist_size">prefs_wrist_size</string>
+    <string name="prefs_weight_loss_pace">prefs_weight_loss_pace</string>
+    <string name="prefs_reminder_freq">prefs_reminder_freq</string>
+    <string name="prefs_weight_unit">prefs_weight_unit</string>
+    <string name="prefs_height_unit">prefs_height_unit</string>
+</resources>
