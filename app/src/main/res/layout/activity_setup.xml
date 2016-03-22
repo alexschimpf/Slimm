@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ViewFlipper
+            android:id="@+id/setup_view_flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <!-- Gender -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:id="@+id/gender_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Gender"
+                        android:textSize="40sp"/>
+
+                    <RadioButton
+                        android:id="@+id/gender_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Male"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/gender_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Female"
+                        android:textSize="30sp"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <!-- Birthdate -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:id="@+id/birthdate_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Birthdate"
+                        android:textSize="40sp"/>
+
+                    <DatePicker
+                        android:id="@+id/birthdate_date_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/birthdate_text_view"
+                        android:layout_centerHorizontal="true"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!-- Measurement System -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:id="@+id/measurement_system_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Measurement\r\nSystem"
+                        android:lines="2"
+                        android:textSize="40sp"/>
+
+                    <RadioButton
+                        android:id="@+id/measurement_system_metric"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Metric (kg/cm)"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/measurement_system_imperial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Imperial (lb/in)"
+                        android:textSize="30sp"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <!-- Weight -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:id="@+id/weight_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Weight"
+                        android:textSize="40sp"/>
+
+                    <EditText
+                        android:id="@+id/weight_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/weight_text_view"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        android:hint="..."
+                        android:textSize="30sp"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!-- Height -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:id="@+id/height_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Height"
+                        android:textSize="40sp"/>
+
+                    <EditText
+                        android:id="@+id/height_edit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/height_text_view"
+                        android:layout_centerHorizontal="true"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:hint="..."
+                        android:textSize="30sp"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <!-- Weight Loss Pace -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:id="@+id/weight_loss_pace_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Weight Loss Pace"
+                        android:textSize="40sp"/>
+
+                    <RadioButton
+                        android:id="@+id/weight_loss_pace_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="0.5 lbs / week"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/weight_loss_pace_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="1 lbs / week"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/weight_loss_pace_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="1.5 lbs / week"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/weight_loss_pace_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="2 lbs / week"
+                        android:textSize="30sp"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <!-- Reminder Frequency -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:id="@+id/reminder_frequency_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/fab_margin"
+                        android:text="Reminder\r\nFrequency"
+                        android:lines="2"
+                        android:textSize="40sp"/>
+
+                    <RadioButton
+                        android:id="@+id/reminder_frequency_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Never"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/reminder_frequency_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Weekly"
+                        android:textSize="30sp"/>
+
+                    <RadioButton
+                        android:id="@+id/reminder_frequency_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Daily"
+                        android:textSize="30sp"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+        </ViewFlipper>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Back"/>
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Next"/>
+
+        </LinearLayout>
+
+</RelativeLayout>

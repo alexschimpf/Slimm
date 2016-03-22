@@ -16,7 +16,7 @@
 
     <string name="prefs_is_new">prefs_is_new</string>
     <string name="prefs_gender">prefs_gender</string>
-    <string name="prefs_age">prefs_age</string>
+    <string name="prefs_birth_date">prefs_birth_date</string>
     <string name="prefs_orig_weight">prefs_orig_weight</string>
     <string name="prefs_curr_weight">prefs_curr_weight</string>
     <string name="prefs_height">prefs_height</string>
@@ -24,4 +24,13 @@
     <string name="prefs_reminder_freq">prefs_reminder_freq</string>
     <string name="prefs_weight_unit">prefs_weight_unit</string>
     <string name="prefs_height_unit">prefs_height_unit</string>
+
+    <string-array name="weight_units">
+        <item>lb</item>
+        <item>kg</item>
+    </string-array>
+    <string-array name="height_units">
+        <item>in</item>
+        <item>cm</item>
+    </string-array>
 </resources>

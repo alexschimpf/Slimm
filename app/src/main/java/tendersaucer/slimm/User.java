@@ -1,5 +1,8 @@
 package tendersaucer.slimm;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
+
 /**
  * Created by Alex on 2/27/2016.
  *
@@ -9,10 +12,6 @@ public final class User {
 
     public enum Gender {
         MALE, FEMALE
-    }
-
-    public enum WeightLossPace {
-        SLOW, MEDIUM, FAST
     }
 
     public enum ReminderFrequency {
@@ -44,7 +43,13 @@ public final class User {
     }
 
     public int getAge() {
-        return dataStore.getInt(R.string.prefs_age, 0);
+        LocalDate birthdate = new LocalDate(getBirthdate());
+        LocalDate now = new LocalDate();
+        return Years.yearsBetween(birthdate, now).getYears();
+    }
+
+    public long getBirthdate() {
+        return dataStore.getLong(R.string.prefs_birth_date, 0L);
     }
 
     /**
@@ -99,7 +104,7 @@ public final class User {
      * Returns the user's current height.
      * @return - current height in preferred unit
      */
-    public int getHeight() {
+    public float getHeight() {
         return getHeight(getHeightUnit());
     }
 
@@ -108,8 +113,8 @@ public final class User {
      * @param unit - return height unit
      * @return - current height in preferred unit
      */
-    public int getHeight(MeasurementUnit unit) {
-        int height = dataStore.getInt(R.string.prefs_height, 0);
+    public float getHeight(MeasurementUnit unit) {
+        float height = dataStore.getFloat(R.string.prefs_height, 0f);
         if (unit.equals(MeasurementUnit.INCHES)) {
             height = ConversionUtils.cm2in(height);
         }
@@ -137,13 +142,13 @@ public final class User {
         return ReminderFrequency.valueOf(dataStore.getString(R.string.prefs_reminder_freq, null));
     }
 
-    public WeightLossPace getWeightLossPace() {
-        return WeightLossPace.valueOf(dataStore.getString(R.string.prefs_weight_loss_pace, null));
+    public float getWeightLossPace() {
+        return dataStore.getFloat(R.string.prefs_weight_loss_pace, 0f);
     }
 
     public int getCurrBMR() {
         float weight = getCurrWeight(MeasurementUnit.KILOGRAMS);
-        int height = getHeight(MeasurementUnit.CENTIMETERS);
+        float height = getHeight(MeasurementUnit.CENTIMETERS);
         return CalorieUtils.getBMR(isMale(), getAge(), weight, height);
     }
 
@@ -155,8 +160,8 @@ public final class User {
         dataStore.putString(R.string.prefs_gender, gender.name());
     }
 
-    public void setAge(int age) {
-        dataStore.putInt(R.string.prefs_age, age);
+    public void setBirthdate(long date) {
+        dataStore.putLong(R.string.prefs_birth_date, date);
     }
 
     /**
@@ -190,12 +195,12 @@ public final class User {
      * @param height
      * @param unit
      */
-    public void setHeight(int height, MeasurementUnit unit) {
+    public void setHeight(float height, MeasurementUnit unit) {
         if (unit.equals(MeasurementUnit.INCHES)) {
             height = ConversionUtils.in2cm(height);
         }
 
-        dataStore.putInt(R.string.prefs_height, height);
+        dataStore.putFloat(R.string.prefs_height, height);
     }
 
     public void setWeightUnit(MeasurementUnit unit) {
@@ -210,7 +215,16 @@ public final class User {
         dataStore.putString(R.string.prefs_reminder_freq, freq.name());
     }
 
-    public void setWeightLossPace(WeightLossPace pace) {
-        dataStore.putString(R.string.prefs_weight_loss_pace, pace.name());
+    /**
+     * Saves as kg.
+     * @param pace - weight to lose per week
+     * @param unit
+     */
+    public void setWeightLossPace(float pace, MeasurementUnit unit) {
+        if (unit.equals(MeasurementUnit.POUNDS)) {
+            pace = ConversionUtils.lb2kg(pace);
+        }
+
+        dataStore.putFloat(R.string.prefs_weight_loss_pace, pace);
     }
 }

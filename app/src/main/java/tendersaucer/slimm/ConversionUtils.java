@@ -16,11 +16,11 @@ public final class ConversionUtils {
         return lb / KG_2_LB;
     }
 
-    public static int cm2in(int cm) {
+    public static float cm2in(float cm) {
         return Math.round(cm * CM_2_IN);
     }
 
-    public static int in2cm(int in) {
+    public static float in2cm(float in) {
         return Math.round(in / CM_2_IN);
     }
 }

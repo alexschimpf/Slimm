@@ -56,8 +56,8 @@ public final class DataStore {
         return prefs.getFloat(getResString(resId), defaultVal);
     }
 
-    public String getLong(int resId, String defaultVal) {
-        return prefs.getString(getResString(resId), defaultVal);
+    public Long getLong(int resId, Long defaultVal) {
+        return prefs.getLong(getResString(resId), defaultVal);
     }
 
     public Set<String> getStringSet(int resId, Set<String> defaultVal) {
